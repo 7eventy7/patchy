@@ -1,25 +1,26 @@
 # Build frontend
-FROM node:20.11-alpine as frontend-builder
+FROM node:20 as frontend-builder
 
 WORKDIR /app/frontend
 
 # Set NODE_ENV to development for build stage
-ENV NODE_ENV=development
+ENV NODE_ENV=development \
+    VITE_API_URL=/api
 
 # Copy frontend package files
 COPY frontend/package*.json ./
 
 # Install all dependencies including devDependencies
-RUN npm ci
+RUN npm install
 
 # Copy frontend source code
 COPY frontend/ .
 
-# Build frontend
+# Type check and build
 RUN npm run build
 
 # Build backend
-FROM node:20-slim AS backend-builder
+FROM node:20 AS backend-builder
 
 WORKDIR /app/backend
 
@@ -35,7 +36,7 @@ RUN npm install
 # Copy backend source code
 COPY backend/ .
 
-# Build backend
+# Type check and build
 RUN npm run build
 
 # Production stage
@@ -47,12 +48,9 @@ RUN apt-get update && apt-get install -y nginx supervisor curl && rm -rf /var/li
 # Set working directory
 WORKDIR /app
 
-# Set NODE_ENV to production for runtime
-ENV NODE_ENV=production
-
-# Copy backend production dependencies
+# Copy backend production dependencies and install
 COPY backend/package*.json ./backend/
-RUN cd backend && npm install --production
+RUN cd backend && npm install --omit=dev
 
 # Copy backend build
 COPY --from=backend-builder /app/backend/dist ./backend/dist
@@ -65,12 +63,16 @@ COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
 RUN mkdir -p /var/log/supervisor
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Create directory for Docker socket
+RUN mkdir -p /var/run
+
 # Expose ports
 EXPOSE 11777 11778
 
 # Set environment variables
-ENV PORT=11778
-ENV VITE_API_URL=http://localhost:11778
+ENV NODE_ENV=production \
+    PORT=11778 \
+    DOCKER_PATH=/var/run/docker.sock
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
