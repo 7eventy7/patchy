@@ -3,10 +3,13 @@ FROM node:20.11-alpine as frontend-builder
 
 WORKDIR /app/frontend
 
+# Set NODE_ENV to development for build stage
+ENV NODE_ENV=development
+
 # Copy frontend package files
 COPY frontend/package*.json ./
 
-# Install frontend dependencies
+# Install all dependencies including devDependencies
 RUN npm ci
 
 # Copy frontend source code
@@ -20,10 +23,13 @@ FROM node:20-slim AS backend-builder
 
 WORKDIR /app/backend
 
+# Set NODE_ENV to development for build stage
+ENV NODE_ENV=development
+
 # Copy backend package files
 COPY backend/package*.json ./
 
-# Install backend dependencies
+# Install all dependencies including devDependencies
 RUN npm install
 
 # Copy backend source code
@@ -40,6 +46,9 @@ RUN apt-get update && apt-get install -y nginx supervisor curl && rm -rf /var/li
 
 # Set working directory
 WORKDIR /app
+
+# Set NODE_ENV to production for runtime
+ENV NODE_ENV=production
 
 # Copy backend production dependencies
 COPY backend/package*.json ./backend/
@@ -60,7 +69,6 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 EXPOSE 11777 11778
 
 # Set environment variables
-ENV NODE_ENV=production
 ENV PORT=11778
 ENV VITE_API_URL=http://localhost:11778
 
