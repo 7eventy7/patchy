@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { RssIcon, ListIcon, TimelineIcon, Settings2Icon } from 'lucide-react';
+import { RssIcon, ListIcon, Clock, Settings2Icon } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 interface LayoutProps {
@@ -12,7 +12,7 @@ export function Layout({ children }: LayoutProps) {
   const navigation = [
     { name: 'Latest Feed', href: '/', icon: RssIcon },
     { name: 'Repo List', href: '/list', icon: ListIcon },
-    { name: 'Timeline', href: '/timeline', icon: TimelineIcon },
+    { name: 'Timeline', href: '/timeline', icon: Clock },
     { name: 'Settings', href: '/settings', icon: Settings2Icon },
   ];
 
