@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { generateRepoColor, formatDate } from '../lib/utils';
+import { formatDate } from '../lib/utils';
 import { dockerService } from '../lib/docker-service';
 
 interface Container {
@@ -8,7 +8,7 @@ interface Container {
   image: string;
   status: string;
   state: string;
-  created: string;
+  created: number;
   ports: any[];
 }
 
