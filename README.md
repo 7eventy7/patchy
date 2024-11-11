@@ -25,7 +25,7 @@ Patchy is a performant web UI application for aggregating and displaying patch/r
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/patchy.git
+git clone https://github.com/7eventy7/patchy.git
 cd patchy
 ```
 
