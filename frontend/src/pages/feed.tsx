@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react';
 import { formatDate } from '../lib/utils';
 import { dockerService } from '../lib/docker-service';
 
+interface Port {
+  IP?: string;
+  PrivatePort?: number;
+  PublicPort?: number;
+  Type: string;
+}
+
 interface Container {
   id: string;
   name: string;
@@ -9,7 +16,7 @@ interface Container {
   status: string;
   state: string;
   created: number;
-  ports: any[];
+  ports: Port[];
 }
 
 export default function Feed() {
