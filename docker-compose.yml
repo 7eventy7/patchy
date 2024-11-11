@@ -1,60 +1,32 @@
 version: '3.8'
 
 services:
-  frontend:
+  app:
     build:
-      context: ./frontend
+      context: .
       dockerfile: Dockerfile
-    container_name: patchy-frontend
+    container_name: patchy-app
     ports:
       - "11777:11777"
-    restart: unless-stopped
-    environment:
-      - NODE_ENV=production
-      - VITE_API_URL=http://backend:11778
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11777"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    depends_on:
-      - backend
-    labels:
-      - "com.docker.compose.project=patchy"
-      - "com.docker.compose.service=frontend"
-
-  backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    container_name: patchy-backend
-    ports:
       - "11778:11778"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
       - PORT=11778
       - DOCKER_PATH=/var/run/docker.sock
+      - VITE_API_URL=http://localhost:11778
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11778/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:11777"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
     labels:
       - "com.docker.compose.project=patchy"
-      - "com.docker.compose.service=backend"
 
 networks:
   default:
     name: patchy-network
     driver: bridge
-
-volumes:
-  node_modules:
