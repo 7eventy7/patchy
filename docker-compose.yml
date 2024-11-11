@@ -1,22 +1,21 @@
 version: '3.8'
 
 services:
-  app:
+  frontend:
     build:
-      context: .
+      context: ./frontend
       dockerfile: Dockerfile
-    container_name: patchy-app
+    container_name: patchy-frontend
     ports:
       - "11777:11777"
-      - "11778:11778"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - PORT=11778
-      - DOCKER_PATH=/var/run/docker.sock
-      - VITE_API_URL=http://localhost:11778
+      - DOCKER_PATH=${DOCKER_PATH:-/var/lib/docker}  # Default path with override option
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./frontend:/app
+      - /app/node_modules
+      - ${DOCKER_PATH:-/var/lib/docker}:/docker:ro  # Mount Docker path as read-only
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11777"]
       interval: 30s
@@ -25,8 +24,12 @@ services:
       start_period: 40s
     labels:
       - "com.docker.compose.project=patchy"
+      - "com.docker.compose.service=frontend"
 
 networks:
   default:
     name: patchy-network
     driver: bridge
+
+volumes:
+  node_modules:

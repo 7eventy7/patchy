@@ -23,9 +23,8 @@ export function generateRepoColor(repoName: string): string {
 }
 
 // Format date for timeline display
-export function formatDate(date: string | Date | number): string {
-  const dateObj = typeof date === 'number' ? new Date(date * 1000) : new Date(date);
-  return dateObj.toLocaleDateString('en-US', {
+export function formatDate(date: string | Date): string {
+  return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
