@@ -4,7 +4,7 @@ interface Container {
   image: string;
   status: string;
   state: string;
-  created: string;
+  created: number;
   ports: any[];
 }
 
