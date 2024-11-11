@@ -1,25 +1,35 @@
-import Dockerode from 'dockerode';
+interface Container {
+  id: string;
+  name: string;
+  image: string;
+  status: string;
+  state: string;
+  created: string;
+  ports: any[];
+}
 
 class DockerService {
-  private docker: Dockerode;
+  private apiUrl: string;
 
   constructor() {
-    // Initialize Docker client with the path from environment variable
-    const dockerPath = process.env.DOCKER_PATH || '/var/lib/docker';
-    this.docker = new Dockerode({ socketPath: dockerPath });
+    this.apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:11777/api';
   }
 
-  async listContainers(all: boolean = true) {
+  async listContainers(all: boolean = true): Promise<Container[]> {
     try {
-      const containers = await this.docker.listContainers({ all });
-      return containers.map(container => ({
+      const response = await fetch(`${this.apiUrl}/containers?all=${all}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      return data.map((container: any) => ({
         id: container.Id,
         name: container.Names[0].replace(/^\//, ''),
         image: container.Image,
         status: container.State,
         state: container.Status,
         created: container.Created,
-        ports: container.Ports,
+        ports: container.Ports || [],
       }));
     } catch (error) {
       console.error('Error listing containers:', error);
@@ -29,8 +39,11 @@ class DockerService {
 
   async getContainerInfo(containerId: string) {
     try {
-      const container = this.docker.getContainer(containerId);
-      const info = await container.inspect();
+      const response = await fetch(`${this.apiUrl}/containers/${containerId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const info = await response.json();
       return {
         id: info.Id,
         name: info.Name.replace(/^\//, ''),
@@ -38,7 +51,7 @@ class DockerService {
         status: info.State.Status,
         state: info.State.Status,
         created: info.Created,
-        ports: info.NetworkSettings.Ports,
+        ports: info.NetworkSettings.Ports || [],
         labels: info.Config.Labels || {},
       };
     } catch (error) {

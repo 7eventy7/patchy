@@ -1,0 +1,22 @@
+{
+  "name": "patchy-backend",
+  "version": "1.0.0",
+  "description": "Backend service for Patchy Docker management",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.8.2",
+    "dockerode": "^4.0.2",
+    "hono": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/dockerode": "^3.3.31",
+    "@types/node": "^20.11.30",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.2"
+  }
+}
