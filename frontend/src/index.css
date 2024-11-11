@@ -64,6 +64,57 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  /* Accent color variations */
+  .accent-purple {
+    --primary: 248 90% 66%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .accent-blue {
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .accent-green {
+    --primary: 142 71% 45%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .accent-orange {
+    --primary: 24 95% 53%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .accent-red {
+    --primary: 0 84% 60%;
+    --primary-foreground: 210 40% 98%;
+  }
+
+  .dark .accent-purple {
+    --primary: 248 90% 66%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+  }
+
+  .dark .accent-blue {
+    --primary: 217 91% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+  }
+
+  .dark .accent-green {
+    --primary: 142 71% 45%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+  }
+
+  .dark .accent-orange {
+    --primary: 24 95% 53%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+  }
+
+  .dark .accent-red {
+    --primary: 0 84% 60%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+  }
 }
  
 @layer base {
