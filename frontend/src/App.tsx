@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './components/theme-provider';
 import { Toaster } from './components/ui/toaster';
 import { Layout } from './components/layout';
