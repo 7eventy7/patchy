@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTheme } from '../components/theme-provider';
+import { useAccent } from '../components/accent-provider';
 import { SunIcon, MoonIcon, MonitorIcon } from 'lucide-react';
 
 interface ColorSchemeOption {
@@ -43,7 +44,7 @@ const settingsSections: SettingsSection[] = [
 
 export default function Settings() {
   const { theme, setTheme } = useTheme();
-  const [selectedAccentColor, setSelectedAccentColor] = useState('purple');
+  const { accent, setAccent } = useAccent();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [updateInterval, setUpdateInterval] = useState('30');
 
@@ -97,9 +98,9 @@ export default function Settings() {
                     {accentColors.map((color) => (
                       <button
                         key={color.value}
-                        onClick={() => setSelectedAccentColor(color.value)}
+                        onClick={() => setAccent(color.value as any)}
                         className={`h-8 w-8 rounded-full ${color.class} ${
-                          selectedAccentColor === color.value
+                          accent === color.value
                             ? 'ring-2 ring-primary ring-offset-2'
                             : ''
                         }`}

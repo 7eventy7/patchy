@@ -11,9 +11,11 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
+      - DOCKER_PATH=${DOCKER_PATH:-/var/lib/docker}  # Default path with override option
     volumes:
       - ./frontend:/app
       - /app/node_modules
+      - ${DOCKER_PATH:-/var/lib/docker}:/docker:ro  # Mount Docker path as read-only
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:11777"]
       interval: 30s
