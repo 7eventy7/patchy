@@ -9,7 +9,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/7eventy7/patchy.svg)](https://hub.docker.com/r/7eventy7/patchy)
 [![License](https://img.shields.io/github/license/7eventy7/patchy.svg)](https://github.com/7eventy7/patchy/blob/main/LICENSE)
 
-A performant web UI application for aggregating and displaying patch/release notes from Docker containers. Keep track of updates across your Docker ecosystem with a clean, modern interface.
+A performant web UI application for aggregating and displaying patch notes from Docker containers. Keep track of updates across your Docker ecosystem with a clean, modern interface.
 
 </div>
 
