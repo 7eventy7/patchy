@@ -53,7 +53,32 @@ npm install
 npm run dev
 ```
 
+## Docker Hub Publishing
 
+The project is configured to automatically publish Docker images to Docker Hub when a new GitHub release is created. The published images will be tagged with both the specific version number and 'latest'.
+
+### Setting up Docker Hub Publishing
+
+1. Create a Docker Hub account if you don't have one
+2. In your GitHub repository settings, add the following secrets:
+   - `DOCKER_USERNAME`: Your Docker Hub username
+   - `DOCKER_PASSWORD`: Your Docker Hub access token (create one in Docker Hub account settings)
+
+### Creating a Release
+
+To publish a new version to Docker Hub:
+
+1. Go to the GitHub repository
+2. Click on "Releases" in the sidebar
+3. Click "Create a new release"
+4. Choose a tag (e.g., v1.0.0)
+5. Fill in the release title and description
+6. Click "Publish release"
+
+The GitHub Action will automatically:
+- Build the Docker image
+- Tag it with the release version and 'latest'
+- Push it to Docker Hub
 
 ## Configuration
 ### Ports
