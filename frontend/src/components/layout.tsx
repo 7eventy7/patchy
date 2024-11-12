@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import { RssIcon, ListIcon, Clock, Settings2Icon } from 'lucide-react';
+import { ListIcon, Clock, Settings2Icon } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { useAccent } from './accent-provider';
+import { useEffect } from 'react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,13 +10,21 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { accent } = useAccent();
 
   const navigation = [
-    { name: 'Latest Feed', href: '/', icon: RssIcon },
-    { name: 'Repo List', href: '/list', icon: ListIcon },
-    { name: 'Timeline', href: '/timeline', icon: Clock },
+    { name: 'Timeline', href: '/', icon: Clock },
+    { name: 'Catalog', href: '/list', icon: ListIcon },
     { name: 'Settings', href: '/settings', icon: Settings2Icon },
   ];
+
+  // Update favicon when accent changes
+  useEffect(() => {
+    const favicon = document.querySelector('link[rel="icon"]');
+    if (favicon) {
+      favicon.setAttribute('href', `/logo-${accent.charAt(0)}.svg`);
+    }
+  }, [accent]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -22,7 +32,14 @@ export function Layout({ children }: LayoutProps) {
         {/* Sidebar */}
         <div className="fixed inset-y-0 z-50 flex w-72 flex-col">
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-border bg-background px-6 pb-4">
-            <div className="flex h-16 shrink-0 items-center">
+            <div className="flex h-16 shrink-0 items-center gap-2">
+              <div className="h-8 w-8 text-primary">
+                <img 
+                  src={`/logo-${accent.charAt(0)}.svg`}
+                  alt="Patchy Logo" 
+                  className="h-full w-full"
+                />
+              </div>
               <h1 className="text-2xl font-bold text-primary">Patchy</h1>
             </div>
             <nav className="flex flex-1 flex-col">

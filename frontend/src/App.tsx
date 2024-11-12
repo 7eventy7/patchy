@@ -5,7 +5,6 @@ import { Toaster } from './components/ui/toaster';
 import { Layout } from './components/layout';
 
 // Pages
-import Feed from './pages/feed';
 import List from './pages/list';
 import Timeline from './pages/timeline';
 import Settings from './pages/settings';
@@ -17,9 +16,8 @@ function App() {
         <Router>
           <Layout>
             <Routes>
-              <Route path="/" element={<Feed />} />
+              <Route path="/" element={<Timeline />} />
               <Route path="/list" element={<List />} />
-              <Route path="/timeline" element={<Timeline />} />
               <Route path="/settings" element={<Settings />} />
             </Routes>
           </Layout>
