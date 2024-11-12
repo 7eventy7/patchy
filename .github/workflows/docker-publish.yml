@@ -28,6 +28,14 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             latest
+
+      # Add step to list directory contents for debugging
+      - name: List directory contents
+        run: |
+          echo "Root directory:"
+          ls -la
+          echo "Frontend directory:"
+          ls -la frontend/
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -37,3 +45,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          # Add build args for more verbose output
+          build-args: |
+            BUILDKIT_PROGRESS=plain
