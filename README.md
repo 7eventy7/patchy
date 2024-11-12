@@ -2,7 +2,7 @@
 
 # <img src="icons/patchy.png" width="32" height="32" alt="Patchy Icon"> Patchy
 
-### Docker Release Notes Aggregator
+### Docker Patch Notes Aggregator
 
 [![GitHub stars](https://img.shields.io/github/stars/7eventy7/patchy.svg?style=social&label=Star&maxAge=2592000)](https://github.com/7eventy7/patchy/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/7eventy7/patchy.svg)](https://github.com/7eventy7/patchy/issues)
