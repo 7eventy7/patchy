@@ -8,12 +8,6 @@ yarn-error.log
 coverage
 .nyc_output
 
-# Build
-dist
-build
-.next
-out
-
 # Environment
 .env
 .env.local
@@ -31,11 +25,6 @@ Thumbs.db
 
 # Version control
 .git
-.gitignore
-
-# Docker
-Dockerfile
-.dockerignore
 
 # Temporary files
 *.log
