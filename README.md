@@ -53,52 +53,17 @@ npm install
 npm run dev
 ```
 
-## Ports
 
-- Frontend: 11777
 
 ## Configuration
+### Ports
 
+- Frontend: 11777
+  
 ### Environment Variables
 
 - `NODE_ENV`: Set to 'production' for production mode
 - Additional environment variables can be configured in the docker-compose.yml file
-
-## Unraid Installation
-
-1. Add the Docker container through the Unraid interface
-2. Use the following container settings:
-   - Repository: patchy
-   - Network Type: Bridge
-   - Port: 11777
-   - Path: /your/config/path
-
-## Development
-
-### Project Structure
-
-```
-patchy/
-├── frontend/           # React frontend application
-│   ├── src/
-│   │   ├── components/ # React components
-│   │   ├── pages/      # Page components
-│   │   ├── lib/        # Utility functions
-│   │   └── hooks/      # Custom React hooks
-│   ├── public/         # Static assets
-│   └── index.html      # Entry point
-├── docker-compose.yml  # Docker Compose configuration
-└── README.md          # Project documentation
-```
-
-### Building for Production
-
-```bash
-cd frontend
-npm run build
-```
-
-The production build will be available in the `dist` directory.
 
 ## Contributing
 
