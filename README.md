@@ -17,9 +17,8 @@ A performant web UI application for aggregating and displaying patch/release not
 
 ## ✨ Features
 
-- **📰 Latest Feed**: View the most recent patch notes from all tracked repositories
-- **📚 Repository List**: Browse all tracked repositories and their release histories
 - **📅 Timeline View**: Visualize releases chronologically with a configurable timeline
+- **📚 Repository List**: Browse all tracked repositories and their release histories
 - **⚙️ Settings**: Customize the application theme and appearance
 - **🎨 Unique Repository Colors**: Each repository has its own distinct color for easy identification
 - **🐳 Docker Integration**: Built specifically for Docker containers and Unraid environments
