@@ -8,16 +8,17 @@ services:
     container_name: patchy-frontend
     ports:
       - "11777:11777"
+      - "11778:11778"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - DOCKER_PATH=${DOCKER_PATH:-/var/lib/docker}  # Default path with override option
+      - API_PORT=11778
+      - VITE_API_URL=http://localhost:11778/api
+      - DOCKER_SOCKET=${DOCKER_SOCKET:-/var/run/docker.sock}
     volumes:
-      - ./frontend:/app
-      - /app/node_modules
-      - ${DOCKER_PATH:-/var/lib/docker}:/docker:ro  # Mount Docker path as read-only
+      - ${DOCKER_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock:ro
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11777"]
+      test: ["CMD", "curl", "-f", "http://localhost:11777/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -30,6 +31,3 @@ networks:
   default:
     name: patchy-network
     driver: bridge
-
-volumes:
-  node_modules:
